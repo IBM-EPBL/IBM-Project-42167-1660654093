@@ -43,22 +43,22 @@ YASWANTH
 
 - [x] PRE DEVELOPMENT PHASE
  
-  - [x] IDEATION PHASE
-        - [x] Literature Survey 
-        - [x] Empathy Map 
-        - [x] Ideation and Brainistorming
-  - [x] PROJECT DESIGN PHASE - I
-        - [x] Proposed Solution 
-        - [x] Problem Solution Fit
-        - [x] Solution Architecture
-  - [x] PROJECT DESIGN PHASE  - II
-        - [x] Customer Journey
-        - [x] Functional Requirements
-        - [x] Data Flow Daigrams
-        - [x] Solution Architecture
-  - [x] PROJECT PLANNING PHASE
-        - [x] Prepare Milestone & Activity List
-        - [x] Sprint Delivery Phase
+- [x] IDEATION PHASE
+  - [x] Literature Survey 
+  - [x] Empathy Map 
+  - [x] Ideation and Brainistorming
+- [x] PROJECT DESIGN PHASE - I
+  - [x] Proposed Solution 
+  - [x] Problem Solution Fit
+  - [x] Solution Architecture
+- [x] PROJECT DESIGN PHASE  - II
+  - [x] Customer Journey
+  - [x] Functional Requirements
+  - [x] Data Flow Daigrams
+  - [x] Solution Architecture
+- [x] PROJECT PLANNING PHASE
+  - [x] Prepare Milestone & Activity List
+  - [x] Sprint Delivery Phase
 
 
 - [x] PROJECT DEVELOPMENT PHASE

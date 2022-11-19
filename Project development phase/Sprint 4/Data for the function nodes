@@ -1,0 +1,84 @@
+// get Direction given UID
+msg.payload = global.get(String(msg.payload.uid));
+return msg;
+
+// get UID
+msg.payload = msg.payload.uid;
+return msg;
+
+// get Location
+msg.payload = msg.payload.location;
+return msg;
+
+// get Visibility
+msg.payload = msg.payload.visibility;
+return msg;
+
+// get Temperature
+msg.payload = msg.payload.temperature;
+return msg;
+
+// getSpeed In
+global.set("data",msg.payload);
+msg.payload.q = msg.payload.location;
+msg.payload.appid = "9cd610e5fd400c74212074c7ace0d62c";
+return msg;
+
+// Log Parser
+weatherObj = JSON.parse(JSON.stringify(msg.payload));
+localityObj = global.get("data");
+
+var suggestedSpeedPercentage = 100;
+
+var preciseObject = {
+    temperature : weatherObj.main.temp - 273.15,
+    location : localityObj.location,
+    visibility : weatherObj.visibility/100,
+    uid : localityObj.uid,
+    direction : global.get("direction")
+};
+
+msg.payload = preciseObject;
+
+return msg;
+
+//Decision Maker node
+weatherObj = JSON.parse(JSON.stringify(msg.payload));
+localityObj = global.get("data");
+
+var suggestedSpeedPercentage = 100;
+
+var preciseObject = {
+    temperature : weatherObj.main.temp - 273.15,
+    weather : weatherObj.weather.map(x=>x.id).filter(code => code<700),
+    visibility : weatherObj.visibility/100
+};
+
+if(preciseObject.visibility<=40)
+    suggestedSpeedPercentage -=30
+    
+switch(String(preciseObject.weather)[-1]) // https://openweathermap.org/weather-conditions refer weather codes meaning here
+{
+    case "0" : suggestedSpeedPercentage -=10;break;
+    case "1" : suggestedSpeedPercentage -=20;break;
+    case "2" : suggestedSpeedPercentage -=30;break;
+}
+
+msg.payload = preciseObject;
+
+var doNotHonk = 0;
+if(localityObj.hospitalZone=="1"||localityObj.schoolZone=="1")
+    doNotHonk = 1;
+
+var returnObject = {
+    suggestedSpeed : localityObj.usualSpeedLimit*(suggestedSpeedPercentage/100),
+    doNotHonk : doNotHonk
+}
+
+msg.payload = String(returnObject.suggestedSpeed) + " kmph \n\n" + (returnObject.doNotHonk==1?"Do Not Honk":"") + "$" + global.get(String(localityObj.uid));
+
+return msg;
+
+//set Direction Function
+global.set(String(msg.payload.uid),msg.payload.dir);
+return msg;
